@@ -1,0 +1,348 @@
+@import "tailwindcss";
+
+/* ============================= */
+/* GLOBAL RESET */
+/* ============================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* ============================= */
+/* THEME VARIABLES */
+/* ============================= */
+:root {
+  --bg-color: #e7ebf0;
+  --container-bg: #ffffff;
+  --card-bg: #ffffff;
+
+  --task-bg: rgb(247, 243, 243);
+  --text-primary: #1a1a1a;
+  --border-color: #e5e7eb;
+
+  --badge-bg: #e5e7eb;
+  --badge-text: #374151;
+  --meta-text: #6b7280;
+}
+
+[data-theme='dark'] {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --card-bg: #2a2a2a;
+  --task-bg: rgb(92, 89, 89);
+  --text-primary: #f0f2f5;
+  --border-color: #333333;
+
+  --badge-bg: #e5e7eb;
+  --badge-text: #374151;
+  --meta-text: #6b7280;
+}
+
+/* ============================= */
+/* BODY */
+/* ============================= */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: var(--container-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.app-header h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+
+
+
+
+/* ============================= */
+/* DASHBOARD STATS */
+/* ============================= */
+.stats-container {
+  padding: 20px 30px;
+  background: var(--container-bg);
+}
+
+.stats-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.progress-bar-bg {
+  height: 8px;
+  background: var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6e8efb, #a777e3);
+  transition: width 0.4s ease;
+}
+
+/* ================= EDIT MODE HIGHLIGHT ================= */
+
+/* .form-container.editing {
+  border: 2px solid #6e8efb;
+  box-shadow: 0 0 0 4px rgba(110, 142, 251, 0.2);
+  transition: all 0.3s ease;
+} */
+
+.form-container.editing input,
+.form-container.editing select {
+  border-color: #6e8efb;
+  background-color: rgba(110, 142, 251, 0.05);
+}
+
+/* ============================= */
+/* TASK FORM */
+/* ============================= */
+.form-container {
+  background: var(--container-bg);
+  padding: 20px 30px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+input, select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.add-btn {
+  background: #6e8efb;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-btn:hover {
+  background: #4c6ef5;
+}
+
+/* ============================= */
+/* KANBAN BOARD */
+/* ============================= */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px;
+  height: calc(100vh - 260px);
+}
+
+/* ============================= */
+/* TASK COLUMN */
+/* ============================= */
+.task-column {
+  background: var(--container-bg);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+}
+
+.task-column h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Scroll inside column */
+.task-column .reorder-group,
+.task-column > div {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 4px;
+}
+
+/* ============================= */
+/* TASK ITEM */
+/* ============================= */
+.task-item {
+  background: var(--task-bg);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 6px solid transparent;
+  cursor: grab;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.task-item:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.task-item:active {
+  cursor: grabbing;
+}
+
+/* Priority */
+.p-level-high { border-left-color: #ff4d4d; }
+.p-level-medium { border-left-color: #ffa500; }
+.p-level-low { border-left-color: #2ecc71; }
+
+/* ============================= */
+/* TASK CONTENT */
+/* ============================= */
+.task-left-side {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.task-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-meta {
+  font-size: 0.75rem;
+ color: var(--meta-text);
+}
+
+.badge {
+  background:var(--badge-bg);
+  color: var(--badge-text);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.completed-text {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* ============================= */
+/* ACTIONS */
+/* ============================= */
+.task-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.delete-btn {
+  background: #fff5f5;
+  color: #ff4d4d;
+  border: 1px solid #ffe3e3;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+@media (max-width: 900px) {
+  .kanban-board {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+/* ================= DASHBOARD LAYOUT ================= */
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* ================= TASK COLUMNS ================= */
+
+.column {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 12px;
+  min-height: 300px;
+}
+
+.column h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+/* ================= REORDER LIST ================= */
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ================= DRAG HANDLE (OPTIONAL) ================= */
+
+.drag-handle {
+  cursor: grab;
+  color: #aaa;
+  font-size: 1.2rem;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+}
+
+
